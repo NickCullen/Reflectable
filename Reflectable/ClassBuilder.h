@@ -22,7 +22,7 @@ public:
 		cb->Target = new Class();	
 		cb->Target->Name = ReflectableType<ClassType>::GetName();
 
-		cm.AddClass(cb->Target->Name, cb->Target);	// Register the class with the manager
+		cm.AddClass(cb->Target->Name, *cb->Target);	// Register the class with the manager
 
 		return *cb;
 	}
@@ -34,12 +34,9 @@ public:
 	ClassBuilder& Base()
 	{
 		ClassManager& cm = ClassManager::GetInstance();	// Get the manager
-		Class* base = cm.GetClass(ReflectableType<BaseType>::GetName());
+		const Class& base = cm.GetClass(ReflectableType<BaseType>::GetName());
 
-		if (base == nullptr)
-			throw std::invalid_argument("No base type exists!\n");
-
-		Target->BaseClasses.push_back(base);
+		Target->BaseClasses.push_back((Class*)&base);
 
 		return *this;
 	}

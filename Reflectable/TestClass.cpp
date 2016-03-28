@@ -16,8 +16,8 @@ void TestClass::Register()
 	ClassBuilder<TestClass>::Declare()
 		.Base<TestBase>();
 
-	Class* cl = ClassManager::GetInstance().GetClass("TestClass");
-
+	const Class& cl = ClassManager::GetInstance().GetClass("TestClass");
+    
 	int i = 0;
 
 }

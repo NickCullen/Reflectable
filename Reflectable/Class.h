@@ -13,6 +13,7 @@ public:
 	Class();
 	~Class();
 
-
+    inline size_t NumOfBaseClasses() { return BaseClasses.size(); }
+    inline const Class& GetBase(size_t index) { return *BaseClasses[index]; }
 };
 

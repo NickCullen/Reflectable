@@ -17,19 +17,29 @@ ClassManager& ClassManager::GetInstance()
 	return cm;
 }
 
-void ClassManager::AddClass(const std::string& id, Class* cl)
+void ClassManager::AddClass(const std::string& id, Class& cl)
 {
 	if (ClassMap.find(id) != ClassMap.end())
 		throw std::invalid_argument("Class already exists");
 
-	ClassMap.insert(std::pair<std::string, Class*>(id, cl));
+	ClassMap.insert(std::pair<std::string, Class&>(id, cl));
 }
 
-Class* ClassManager::GetClass(const std::string& id)
+const Class& ClassManager::GetClass(const std::string& id)
 {
 	ClassMapType::iterator itr;
 	if ((itr = ClassMap.find(id)) == ClassMap.end())
-		return nullptr;
+        throw std::invalid_argument("Class does not exists\n");
 	return itr->second;
 
+}
+
+ClassMapType::iterator ClassManager::IterClassBegin()
+{
+    GetInstance().ClassMap.begin();
+}
+
+ClassMapType::iterator ClassManager::IterClassEnd()
+{
+    GetInstance().ClassMap.end();
 }
